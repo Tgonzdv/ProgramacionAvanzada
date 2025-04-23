@@ -158,9 +158,6 @@
 
 
 
-
-
-
                                      if (inputPaciente != null) {
                                          int subOpcion = Integer.parseInt(inputPaciente);
                                          switch (subOpcion) {
@@ -251,8 +248,6 @@
 
 
                              );
-
-
 
 
                              if (input == null) break;
