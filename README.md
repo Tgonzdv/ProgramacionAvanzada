@@ -1,4 +1,22 @@
-<h1>Visualización de Modelos de Base de Datos</h1>
+<h1>TP PROGRAMACION AVANZADA</h1>
+
+
+
+<h2>📄 Archivos Word</h2>
+<ul>
+  <li>Un <strong>Entrevista de relevacion de requerimientos</strong></li>
+  <li>Un <strong>Especificación de Requisitos de Software (SRS)</strong></li>
+</ul>
+<ul>
+  <li><a href="./ENTREVISTA.docx" download>ENTREVISTA.docx</a></li>
+  <li><a href="./SRS.docx" download>SRS.docx</a></li>
+</ul>
+
+
+
+
+
+
 
 <p>Este repositorio contiene dos diagramas relacionados con el diseño de una base de datos:</p>
 <ul>
@@ -7,18 +25,13 @@
 </ul>
 
 <h2>📊 Diagrama Entidad-Relación (DER)</h2>
-<img src="./DER.png" alt="Diagrama DER" style="max-width: 100%; height: auto; border: 1px solid #ccc; padding: 5px;">
+<img src="./DER.png" alt="Diagrama DER" style="max-width: 50%; height: auto; border: 1px solid #ccc; padding: 5px;">
 
 <hr>
 
 <h2>🧩 Diagrama de Clases UML</h2>
-<img src="./UML.png" alt="Diagrama UML" style="max-width: 100%; height: auto; border: 1px solid #ccc; padding: 5px;">
+<img src="./UML.png" alt="Diagrama UML" style="max-width: 50%; height: auto; border: 1px solid #ccc; padding: 5px;">
 
 <hr>
 
-<h2>📄 Archivos Word</h2>
-<p>Además de los diagramas, este repositorio incluye los siguientes documentos:</p>
-<ul>
-  <li><a href="./ENTREVISTA.docx" download>ENTREVISTA.docx</a></li>
-  <li><a href="./SRS.docx" download>SRS.docx</a></li>
-</ul>
+
