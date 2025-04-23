@@ -8,7 +8,7 @@
   <li>Un <strong>Especificación de Requisitos de Software (SRS)</strong></li>
 </ul>
 <ul>
-  <li><a href="./ENTREVISTA.docx" download>ENTREVISTA.docx</a></li>
+  <li><a href="./Entrevista.docx" download>Entrevista.docx</a></li>
   <li><a href="./SRS.docx" download>SRS.docx</a></li>
 </ul>
 
