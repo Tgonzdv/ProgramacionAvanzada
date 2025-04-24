@@ -32,6 +32,9 @@
 <h2>🧩 Diagrama de Clases UML</h2>
 <img src="./UML.png" alt="Diagrama UML" style="max-width: 50%; height: auto; border: 1px solid #ccc; padding: 5px;">
 
+<h2>🧩 Diagrama de Casos de uso</h2>
+<img src="./DiagramaCasoDeUso.jpg" alt="Diagrama UML" style="max-width: 50%; height: auto; border: 1px solid #ccc; padding: 5px;">
+
 <hr>
 
 
