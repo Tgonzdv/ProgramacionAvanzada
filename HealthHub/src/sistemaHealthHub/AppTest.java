@@ -14,13 +14,16 @@
          };
 
 
+         // Proximamente
+         //    String[] opciones = {    
+         //          "Login",
+         //          "Registrarse",
+         //           "Salir"
+         //      };
 
-         String[] opciones = {
-             "Login",
-             "Registrarse",
-             "Salir"
-         };
-
+         
+         
+         
          int opcionInicial = 0;
 
          do { // PARA MANTENERME DENTRO DE MENU PRINICPAL DONDE ELIJO PERFIL
