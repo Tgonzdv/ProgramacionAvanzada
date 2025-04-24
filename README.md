@@ -22,6 +22,7 @@
 <ul>
   <li>Un <strong>Diagrama Entidad-Relación (DER)</strong></li>
   <li>Un <strong>Diagrama de Clases UML</strong></li>
+    <li>Un <strong>Diagrama de Casos de Uso </strong></li>
 </ul>
 
 <h2>📊 Diagrama Entidad-Relación (DER)</h2>
@@ -32,7 +33,7 @@
 <h2>🧩 Diagrama de Clases UML</h2>
 <img src="./UML.png" alt="Diagrama UML" style="max-width: 50%; height: auto; border: 1px solid #ccc; padding: 5px;">
 
-<h2>🧩 Diagrama de Casos de uso</h2>
+<h2>🧩 Diagrama de Casos de Uso</h2>
 <img src="./DiagramaCasoDeUso.jpg" alt="Diagrama UML" style="max-width: 50%; height: auto; border: 1px solid #ccc; padding: 5px;">
 
 <hr>
