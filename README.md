@@ -16,8 +16,6 @@
 
 
 
-
-
 <p>Este repositorio contiene dos diagramas relacionados con el diseño de una base de datos:</p>
 <ul>
   <li>Un <strong>Diagrama Entidad-Relación (DER)</strong></li>
