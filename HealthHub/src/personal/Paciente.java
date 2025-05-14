@@ -18,10 +18,19 @@ public class Paciente extends Persona{
     }
 	
 	
-	
-	
-	
-	
+	//get de historial
+    public Historial getHistorial() {
+        return historial;
+    }
+
+ 
+	//toString de la clase Paciente
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "historial=" + historial +
+                '}';
+    }
 	
 	
 	
