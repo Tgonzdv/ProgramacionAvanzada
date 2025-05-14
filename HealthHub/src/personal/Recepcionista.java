@@ -70,8 +70,64 @@ public class Recepcionista extends Persona {
     }
 
     
+    //metodo para reprogramar turno
+    public boolean reprogramarTurno(Medico medico, Paciente paciente, LocalDateTime fechaHoraVieja, LocalDateTime fechaHoraNueva) {
+        Turno turno = paciente.getHistorial().getTurnos().stream()
+                .filter(t -> t.getMedico().equals(medico) && t.getFechaHora().equals(fechaHoraVieja))
+                .findFirst()
+                .orElse(null);
+        
+        if(turno != null) {
+            if(medico.hayTurnoDisponible(fechaHoraNueva)) {
+                medico.removeAgendaLibre(fechaHoraNueva); // Eliminar el nuevo turno de la agenda del medico
+                turno.setFecha(fechaHoraNueva);
+                return true;
+            } else {
+                System.out.println("El medico no tiene turnos disponibles para esa fecha");
+                return false;
+            }
+        } else {
+            System.out.println("No se encontro el turno");
+            return false;
+        }
+    }
     
+
+
+ //metodo para registrar nuevo medico crean do clase con datos completos
+    public Medico registrarMedico(int matricula, String especialidad, int rol, String nombre, String apellido, Date fn, int dni, String domicilio) {
+        Medico medico = new Medico(rol, nombre, apellido, fn, dni, domicilio, matricula, especialidad);
+        return medico;
+    }
+    //metodo para registrar nuevo paciente creando clase con datos completos
+    public Paciente registrarPaciente(int rol, String nombre, String apellido, Date fn, int dni, String domicilio) {
+        Paciente paciente = new Paciente(rol, nombre, apellido, fn, dni, domicilio);
+        return paciente;
+    }
+    //metodo para modificar datos de paciente
+    public void modificarDatosPaciente(Paciente paciente, String nombre, String apellido, Date fn, int dni, String domicilio) {
+        paciente.setNombre(nombre);
+        paciente.setApellido(apellido);
+        paciente.setFn(fn);
+        paciente.setDni(dni);
+        paciente.setDomicilio(domicilio);
+    }
+    //metodo para modificar datos de medico
+    public void modificarDatosMedico(Medico medico, String nombre, String apellido, Date fn, int dni, String domicilio) {
+        medico.setNombre(nombre);
+        medico.setApellido(apellido);
+        medico.setFn(fn);
+        medico.setDni(dni);
+        medico.setDomicilio(domicilio);
+    }
     
+
+
+
+
+
+
+
 
 }
 
