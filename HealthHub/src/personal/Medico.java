@@ -15,7 +15,9 @@ public class Medico extends Persona {
 	
  
  
- 
+ //Constructor de la clase Medico
+ //Recibe como parametro la matricula,especialidad,rol,nombre,apellido,fecha de nacimiento,dni y domicilio
+
  public Medico (int matricula,String especialidad,int rol,String nombre,String apellido,Date fn,int dni,String domicilio) {
 	 
   super(rol,nombre,apellido,fn,dni,domicilio);
@@ -23,11 +25,10 @@ public class Medico extends Persona {
   this.matricula=matricula;
   this.especialidad=especialidad;
   agendaLibre = new LinkedList<>();
-
 }
 	
- 
- 
- 
- 
+public int getMatricula() {
+  return matricula; 
+  
+}
 }
