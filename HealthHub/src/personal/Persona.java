@@ -1,33 +1,46 @@
 package personal;
 import java.util.Date;
-
+import java.time.LocalDateTime;
 
 
 
 public class Persona {
 	private static int contadorId=1;
 	private  int id;
-	private int rol;
 	private String nombre;
 	private String apellido;
 	private Date fechaNac;
 	private int dni;
+	private String email;
+	private String telefono;
 	private String domicilio;
 	
 
 	
 	
-	public Persona(int rol,String nombre,String apellido,Date fn,int dni,String domicilio) {
+	public Persona(String nombre,String apellido,Date fn,int dni,String domicilio ,String email, String telefono) {
 		 this.id = contadorId++;
-		this.rol=rol;
+		
 		this.nombre=nombre;
 		this.apellido=apellido;
 		this.fechaNac=fn;
 		this.dni=dni;
 		this.domicilio=domicilio;
+		this.email=email;
+		this.telefono=telefono;
 	}
 	
 	
+	public Persona(String nombre,int dni,String email) {
+		 this.id = contadorId++;
+		
+		this.nombre=nombre;
+	
+		this.dni=dni;
+		
+		this.email=email;
+	
+	}
 	
 	//getters y setters de la clase Persona
 	public int getId() {
@@ -37,12 +50,7 @@ public class Persona {
 		this.id = id;
 	}
 
-	public int getRol() {
-		return rol;
-	}
-	public void setRol(int rol) {
-		this.rol = rol;
-	}
+
 
 	public String getNombre() {
 		return nombre;
@@ -80,10 +88,27 @@ public class Persona {
 		this.domicilio = domicilio;
 	}
 
+	//metodo para setear fecha nacimiento con parametro date 
+	public void setFn(Date fechaNac) {
+		this.fechaNac = fechaNac;
+	}
+
+
+	
+	//get email
+	public String getEmail() {
+		return email;
+	}
+	//set email
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+
 	//toString de la clase Persona
 	@Override
 	public String toString() {
-		return "Persona [id=" + id + ", rol=" + rol + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac="
+		return "Persona [id=" + id + ", rol="  + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac="
 				+ fechaNac + ", dni=" + dni + ", domicilio=" + domicilio + "]";
 	}
 

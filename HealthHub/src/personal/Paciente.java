@@ -12,8 +12,8 @@ public class Paciente extends Persona{
 	
 
 	 
-    public Paciente(int rol, String nombre, String apellido, Date fn, int dni, String domicilio) {
-        super(rol, nombre, apellido, fn, dni, domicilio);
+    public Paciente( String nombre, String apellido, Date fn, int dni, String domicilio, String email, String tel) {
+        super(nombre, apellido, fn, dni, domicilio,email,tel);
         this.historial = new Historial(); 
     }
 	

@@ -2,30 +2,65 @@ package personal;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import java.sql.Connection;
 
+import complementosBack.Conexion;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import complementosBack.Encriptador;
 import personal.Medico;
-
 import complementos.Turno;
-
 import personal.Paciente;
 import personal.Persona;
+
+
 import java.util.LinkedList;
  
+ 
 
-public class Recepcionista extends Persona {
+public class Recepcionista  extends Persona implements Encriptador  {
+
+
+
     
+    protected String password;
+     
    
    
-   
-   
+   //get password
+    public String getPassword() {
+        return password;
+    }
+    //set password
+    public void setPassword(String password) {
+        this.password = password;
+    }
    
    
    
     //Constructor de la clase Recepcionista
-    public Recepcionista(int rol, String nombre, String apellido, Date fn, int dni, String domicilio) {
-        super(rol, nombre, apellido, fn, dni, domicilio);
+    public Recepcionista(int rol, String nombre, String apellido, Date fn, int dni, String domicilio , String email, String password) {
+        super( nombre, apellido, fn, dni, domicilio,email,null);
+        this.password = password;
+       
     }
     
+
+  //constructor para new Recepcionista(id, nombre, email, dni)
+    public Recepcionista(int id, String nombre, String email, int dni) {
+    	   super( nombre, dni, email);
+        
+        
+        
+        
+    }
+    
+
+
+
 
    //metodo para asignar turno a paciente Medico,Paciente,Turno,LocalDateTime
     public boolean asignarTurno(Medico medico, Paciente paciente,  LocalDateTime fechaHora) {
@@ -94,14 +129,22 @@ public class Recepcionista extends Persona {
     
 
 
- //metodo para registrar nuevo medico crean do clase con datos completos
-    public Medico registrarMedico(int matricula, String especialidad, int rol, String nombre, String apellido, Date fn, int dni, String domicilio) {
-        Medico medico = new Medico(rol, nombre, apellido, fn, dni, domicilio, matricula, especialidad);
+ //metodo para registrar nuevo medico 
+    public Medico registrarMedico(int matricula, String especialidad, int rol, String nombre, String apellido, Date fn, int dni, String domicilio,String email,String password) {
+        Medico medico = new Medico(matricula, especialidad,  nombre, apellido, fn, dni, domicilio,email,password);
         return medico;
     }
+    
+   
+    
+    
+    
+    
+    
+    
     //metodo para registrar nuevo paciente creando clase con datos completos
-    public Paciente registrarPaciente(int rol, String nombre, String apellido, Date fn, int dni, String domicilio) {
-        Paciente paciente = new Paciente(rol, nombre, apellido, fn, dni, domicilio);
+    public Paciente registrarPaciente( String nombre, String apellido, Date fn, int dni, String domicilio,String email) {
+        Paciente paciente = new Paciente( nombre, apellido, fn, dni, domicilio,email,null);
         return paciente;
     }
     //metodo para modificar datos de paciente
@@ -126,14 +169,115 @@ public class Recepcionista extends Persona {
 
 
 
+    private static Connection con = Conexion.getInstance().getConnection();
 
+
+
+
+
+    public static void agregarRecepcionista(Recepcionista nuevo) {
+        try {
+            PreparedStatement statement = con.prepareStatement(
+                "INSERT INTO recepcionista (nombre,apellido,domicilio, email,dni, password) VALUES (?, ?, ?, ?, ?, ?)"
+            );
+
+
+           
+            statement.setString(1, nuevo.getNombre());
+
+    statement.setString(2, nuevo.getApellido());
+
+  statement.setString(3, nuevo.getDomicilio());
+
+
+
+            statement.setString(4, nuevo.getEmail());
+
+            statement.setInt(5, nuevo.getDni());
+           
+            
+            statement.setString(6, 
+            		
+            		
+            		nuevo.encriptar(nuevo.getPassword())
+            		
+            		);
+
+            int filas = statement.executeUpdate();
+            if (filas > 0) {
+                System.out.println("Recepcionista agregado correctamente.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
+
+
+
+    public static LinkedList<Recepcionista> mostrarRecepcionistas() {
+        LinkedList<Recepcionista> recepcionistas = new LinkedList<>();
+        try {
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM recepcionista");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String email = rs.getString("email");
+
+                
+                int dni = rs.getInt("dni");
+
+                recepcionistas.add(new Recepcionista(id, nombre, email, dni));
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
 
 
 }
 
   
- 
 
+        return recepcionistas;
+    }
+    
+    
+    
+
+
+
+
+  //metodo para verificar si ya existe
+    public static void RegistrarRecepcionista(Recepcionista nuevo) {
+    	
+    	LinkedList<Recepcionista> existentes = mostrarRecepcionistas();
+    	boolean flag = true;
+    	for (Recepcionista existente : existentes) {
+			if (existente.getDni()==(nuevo.getDni())) {
+				flag = false;
+				break;
+			}
+		}
+    	if (flag) {
+    		agregarRecepcionista(nuevo);
+		}else {
+			JOptionPane.showMessageDialog(null, "Recepcionista ya creado");
+		}
+    	
+    	
+    }
+    
+    
+    
+}
+    
+    
+
+ 
 
 
 

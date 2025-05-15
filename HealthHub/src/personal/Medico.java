@@ -13,23 +13,22 @@ public class Medico extends Persona {
  private String especialidad;
  private LinkedList<LocalDateTime> agendaLibre;
 private LinkedList<Turno> turnos;	
- 
+   protected String password;
  
  //Constructor de la clase Medico
- //Recibe como parametro la matricula,especialidad,rol,nombre,apellido,fecha de nacimiento,dni y domicilio
+ //Recibe como parametro la matricula,especialidad,nombre,apellido,fecha de nacimiento,dni y domicilio
 
- public Medico (int matricula,String especialidad,int rol,String nombre,String apellido,Date fn,int dni,String domicilio) {
+ public Medico (int matricula,String especialidad,String nombre,String apellido,Date fn,int dni,String domicilio ,String email, String password) {
 	 
-  super(rol,nombre,apellido,fn,dni,domicilio);
-  
+  super(nombre,apellido,fn,dni,domicilio,email,null);
+  this.password = password;
   this.matricula=matricula;
   this.especialidad=especialidad;
   agendaLibre = new LinkedList<>();
   turnos = new LinkedList<>();
 
 }
-	
-
+	 
 //getters y setters de la clase Medico
 public int getMatricula() {
   return matricula;

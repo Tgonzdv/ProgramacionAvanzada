@@ -1,5 +1,8 @@
 package sistemaHealthHub;
 
+import personal.Recepcionista;
+
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -8,7 +11,7 @@ public class AppTest {
     public static void main(String[] args) {
         String[] menuInicio = {
             "1. Login",
-            "3. Registrar recepcionista",
+            "99. Registrar recepcionista",
             "4. Salir"
         };
 
@@ -39,19 +42,13 @@ public class AppTest {
                     case 1:
           
 
-                        menuRecepcionista();
+                        Login();
                         break;
-                    case 2:
-                        menuMedico();
-                        break;
-                    case 3:
+               
+                    case 99:
                     	
-                    	
+            
                     	 RegistrarRecep();
-                        
-                        
-                        
-                        
                         
                         
                     case 4:
@@ -73,21 +70,32 @@ public class AppTest {
     
     
     
-    public static void RegistrarRecep(){
+    public static void RegistrarRecep(){  //ESTE MENU ESTARA OCULTO, SE USA PARA CREAR EL PRIMER USUARIO RECEPCIONISTA
 
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del recepcionista:");
         String apellido = JOptionPane.showInputDialog("Ingrese el apellido del recepcionista:");
         String dniStr = JOptionPane.showInputDialog("Ingrese el DNI del recepcionista:");
         String domicilio = JOptionPane.showInputDialog("Ingrese el domicilio del recepcionista:");
+        String email = JOptionPane.showInputDialog("Ingrese el email del recepcionista:");
+        String password = JOptionPane.showInputDialog("Ingrese la contraseña del recepcionista:");
+
 
         if (nombre != null && apellido != null && dniStr != null && domicilio != null) {
             try {
                 int dni = Integer.parseInt(dniStr);
-                // Aquí puedes agregar la lógica para guardar el recepcionista en tu sistema
+               
                 JOptionPane.showMessageDialog(null, "Recepcionista registrado con éxito:\n" + nombre + " " + apellido + "\nDNI: " + dni + "\nDomicilio: " + domicilio);
+          
+                Recepcionista recepcionista = new Recepcionista(3, nombre, apellido, null, dni, domicilio,email,password);
+                
+                Recepcionista.RegistrarRecepcionista(recepcionista);
+           
+                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Por favor ingrese un DNI válido.");
             }
+
+            
         }
         
     	
@@ -95,9 +103,25 @@ public class AppTest {
     }
     
     
+        public static void Login(){ 
+             String dniStr = JOptionPane.showInputDialog("Ingrese su DNI:");
+            String pass = JOptionPane.showInputDialog("Ingrese la contraseña  :");
     
-    
-    
+    if( dniStr != null && pass != null) {
+            try {
+                int dni = Integer.parseInt(dniStr);
+               
+                JOptionPane.showMessageDialog(null, "Login con éxito para DNI:\n" + dni );
+          
+                
+           
+                
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor ingrese un DNI válido.");
+            } 
+        
+        
+        } }
     
     public static void menuRecepcionista() {
         String[] opcionesRecepcionista = {

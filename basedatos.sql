@@ -1,26 +1,43 @@
-﻿-- Crear base de datos
+﻿ -- Crear base de datos
 CREATE DATABASE IF NOT EXISTS healthhub;
 USE healthhub;
 
--- Tabla Persona (superclase)
-CREATE TABLE Persona (
+-- Tabla Paciente
+CREATE TABLE Paciente (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    rol VARCHAR(20),
     nombre VARCHAR(50),
     apellido VARCHAR(50),
+    email VARCHAR(100) UNIQUE,
+    telefono VARCHAR(20),
     fecha_nac DATE,
     domicilio VARCHAR(100),
     dni INT UNIQUE
 );
 
-
-
--- Tabla Medico (hereda de Persona)
+-- Tabla Médico
 CREATE TABLE Medico (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    domicilio VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    password VARCHAR(255),
+
+    dni INT UNIQUE,
     matricula INT UNIQUE,
-    especialidad VARCHAR(50),
-    FOREIGN KEY (id) REFERENCES Persona(id) ON DELETE CASCADE
+    especialidad VARCHAR(50)
+);
+
+-- Tabla Recepcionista
+CREATE TABLE Recepcionista (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    domicilio VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    password VARCHAR(255),
+    dni INT UNIQUE
+
 );
 
 -- Tabla Historial (1 a 1 con Paciente)
@@ -28,7 +45,7 @@ CREATE TABLE Historial (
     id INT PRIMARY KEY AUTO_INCREMENT,
     paciente_id INT UNIQUE,
     registro_clinico TEXT,
-    FOREIGN KEY (id) REFERENCES Persona(id) ON DELETE CASCADE
+    FOREIGN KEY (paciente_id) REFERENCES Paciente(id) ON DELETE CASCADE
 );
 
 -- Tabla Turno (relaciona Paciente y Médico)
@@ -38,6 +55,6 @@ CREATE TABLE Turno (
     medico_id INT,
     registro TEXT,
     fecha DATETIME,
-    FOREIGN KEY (paciente_id) REFERENCES Persona(id) ON DELETE CASCADE,
+    FOREIGN KEY (paciente_id) REFERENCES Paciente(id) ON DELETE CASCADE,
     FOREIGN KEY (medico_id) REFERENCES Medico(id) ON DELETE CASCADE
 );
