@@ -10,11 +10,11 @@ public class AppTest {
 
     public static void main(String[] args) {
         String[] menuInicio = {
-            "1. Login",
+            "1. Ingresar a menu Recepcionista",
+            "2. Ingresar a menu Medico",
             "99. Registrar recepcionista",
             "4. Salir"
         };
-
         int opcionInicial = 0;
 
         do {
@@ -84,12 +84,12 @@ public class AppTest {
             try {
                 int dni = Integer.parseInt(dniStr);
                
-                JOptionPane.showMessageDialog(null, "Recepcionista registrado con éxito:\n" + nombre + " " + apellido + "\nDNI: " + dni + "\nDomicilio: " + domicilio);
-          
-                Recepcionista recepcionista = new Recepcionista(3, nombre, apellido, null, dni, domicilio,email,password);
+            
+             
+                Recepcionista recepcionista = new Recepcionista(0,nombre, apellido, dni, domicilio,email,password);
                 
                 Recepcionista.RegistrarRecepcionista(recepcionista);
-           
+            
                 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Por favor ingrese un DNI válido.");
@@ -103,7 +103,7 @@ public class AppTest {
     }
     
     
-        public static void Login(){ 
+  public static void Login(){ 
              String dniStr = JOptionPane.showInputDialog("Ingrese su DNI:");
             String pass = JOptionPane.showInputDialog("Ingrese la contraseña  :");
     
@@ -111,24 +111,46 @@ public class AppTest {
             try {
                 int dni = Integer.parseInt(dniStr);
                
+              
+                
+                
+                
                 JOptionPane.showMessageDialog(null, "Login con éxito para DNI:\n" + dni );
           
                 
-           
+               
                 
+                
+                
+                menuRecepcionista();
+                
+        
+            
+            
+            
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Por favor ingrese un DNI válido.");
             } 
         
         
         } }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
     
     public static void menuRecepcionista() {
         String[] opcionesRecepcionista = {
             "1. Ir a Turnos",
             "2. Ir a Pacientes",
             "3. Ir a Médicos",
-            "4. Volver"
+            "4. Salir"
         };
 
         int opcionRecep = 0;
@@ -166,7 +188,7 @@ public class AppTest {
                     case 4:
                         break;
                     default:
-                        JOptionPane.showMessageDialog(null, "Opción inválida");
+                         
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Por favor ingrese un número válido.");

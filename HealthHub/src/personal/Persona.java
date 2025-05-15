@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 
 public class Persona {
-	private static int contadorId=1;
+	private int contadorId=1;
 	private  int id;
 	private String nombre;
 	private String apellido;
@@ -18,8 +18,9 @@ public class Persona {
 
 	
 	
-	public Persona(String nombre,String apellido,Date fn,int dni,String domicilio ,String email, String telefono) {
-		 this.id = contadorId++;
+	public Persona(int id,String nombre,String apellido,Date fn,int dni,String domicilio ,String email, String telefono) {
+		
+		this.id =id;
 		
 		this.nombre=nombre;
 		this.apellido=apellido;

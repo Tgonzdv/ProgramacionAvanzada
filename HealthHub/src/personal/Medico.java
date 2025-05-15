@@ -18,9 +18,9 @@ private LinkedList<Turno> turnos;
  //Constructor de la clase Medico
  //Recibe como parametro la matricula,especialidad,nombre,apellido,fecha de nacimiento,dni y domicilio
 
- public Medico (int matricula,String especialidad,String nombre,String apellido,Date fn,int dni,String domicilio ,String email, String password) {
+ public Medico (int id,int matricula,String especialidad,String nombre,String apellido,Date fn,int dni,String domicilio ,String email, String password) {
 	 
-  super(nombre,apellido,fn,dni,domicilio,email,null);
+  super(id,nombre,apellido,fn,dni,domicilio,email,null);
   this.password = password;
   this.matricula=matricula;
   this.especialidad=especialidad;

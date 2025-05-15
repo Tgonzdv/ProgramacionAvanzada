@@ -42,8 +42,8 @@ public class Recepcionista  extends Persona implements Encriptador  {
    
    
     //Constructor de la clase Recepcionista
-    public Recepcionista(int rol, String nombre, String apellido, Date fn, int dni, String domicilio , String email, String password) {
-        super( nombre, apellido, fn, dni, domicilio,email,null);
+    public Recepcionista(int id,String nombre, String apellido, int dni, String domicilio , String email, String password) {
+        super(id, nombre, apellido, null, dni, domicilio,email,null);
         this.password = password;
        
     }
@@ -130,8 +130,8 @@ public class Recepcionista  extends Persona implements Encriptador  {
 
 
  //metodo para registrar nuevo medico 
-    public Medico registrarMedico(int matricula, String especialidad, int rol, String nombre, String apellido, Date fn, int dni, String domicilio,String email,String password) {
-        Medico medico = new Medico(matricula, especialidad,  nombre, apellido, fn, dni, domicilio,email,password);
+    public Medico registrarMedico(int id,int matricula, String especialidad, int rol, String nombre, String apellido, Date fn, int dni, String domicilio,String email,String password) {
+        Medico medico = new Medico(id,matricula, especialidad,  nombre, apellido, fn, dni, domicilio,email,password);
         return medico;
     }
     
@@ -143,8 +143,8 @@ public class Recepcionista  extends Persona implements Encriptador  {
     
     
     //metodo para registrar nuevo paciente creando clase con datos completos
-    public Paciente registrarPaciente( String nombre, String apellido, Date fn, int dni, String domicilio,String email) {
-        Paciente paciente = new Paciente( nombre, apellido, fn, dni, domicilio,email,null);
+    public Paciente registrarPaciente( int id,String nombre, String apellido, Date fn, int dni, String domicilio,String email) {
+        Paciente paciente = new Paciente(id,nombre, apellido, fn, dni, domicilio,email,null);
         return paciente;
     }
     //metodo para modificar datos de paciente
@@ -187,10 +187,7 @@ public class Recepcionista  extends Persona implements Encriptador  {
 
     statement.setString(2, nuevo.getApellido());
 
-  statement.setString(3, nuevo.getDomicilio());
-
-
-
+     statement.setString(3, nuevo.getDomicilio());
             statement.setString(4, nuevo.getEmail());
 
             statement.setInt(5, nuevo.getDni());
@@ -257,21 +254,80 @@ public class Recepcionista  extends Persona implements Encriptador  {
     	LinkedList<Recepcionista> existentes = mostrarRecepcionistas();
     	boolean flag = true;
     	for (Recepcionista existente : existentes) {
-			if (existente.getDni()==(nuevo.getDni())) {
+			if (existente.getDni()==(nuevo.getDni())     
+                    || existente.getEmail().equals(nuevo.getEmail())) {
 				flag = false;
 				break;
 			}
 		}
     	if (flag) {
     		agregarRecepcionista(nuevo);
+    		JOptionPane.showMessageDialog(null, "Recepcionista creado con exito");
 		}else {
-			JOptionPane.showMessageDialog(null, "Recepcionista ya creado");
+			
+			
+			JOptionPane.showMessageDialog(null, "Recepcionista ya creado con ese dni o email");
 		}
     	
     	
     }
     
     
+
+    
+    
+    
+    
+    
+    
+    
+    
+   /*
+    
+    public static Recepcionista loginRecepcionista(int dni, String password) {
+    	Recepcionista recepcionista = null;
+        try {
+            PreparedStatement stmt = con.prepareStatement(
+                "SELECT * FROM recepcionista WHERE dni = ? AND password = ?"
+            );
+            stmt.setInt(1, dni);
+            stmt.setString(2, recepcionista.encriptar(password));
+            
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+              
+            	
+            	int id = rs.getInt("id"); //falta agregarlo al constructor
+                String email = rs.getString("email");
+                int dni = rs.getInt("dni");
+                
+                
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                String domicilio = rs.getString("domicilio");
+                
+                String password = rs.getString("password");
+
+
+               //crear nuevo recepcionista con todos los datos de la base de datos
+               recepcionista = new Recepcionista(id,nombre, apellido, dni, domicilio,email,password); 
+    
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recepcionista;
+    }
+
+
+*/
+
+
+
+
+
     
 }
     
