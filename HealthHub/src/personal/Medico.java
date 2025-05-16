@@ -188,6 +188,10 @@ public LinkedList<LocalDateTime> getAgendaLibre() {
              medico = new Medico(id,nombre, apellido, dni, domicilio,email,password,especialidad,matricula); 
              
 
+          }else {
+              JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+              medico.setDni(999);
+              return medico;
           }
       } catch (Exception e) {
           e.printStackTrace();
