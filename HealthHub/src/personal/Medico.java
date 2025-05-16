@@ -2,31 +2,93 @@ package personal;
 
 import complementos.Turno;
 
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import complementosBack.Conexion;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import complementosBack.Encriptador;
 
 import java.util.Date;
 import java.util.LinkedList;
 import java.time.LocalDateTime;
 
-public class Medico extends Persona {
+public class Medico extends Persona  implements Encriptador  {
 	
  private int matricula;
  private String especialidad;
  private LinkedList<LocalDateTime> agendaLibre;
-private LinkedList<Turno> turnos;	
+  private LinkedList<Turno> turnos;	
    protected String password;
  
  //Constructor de la clase Medico
  //Recibe como parametro la matricula,especialidad,nombre,apellido,fecha de nacimiento,dni y domicilio
 
- public Medico (int id,int matricula,String especialidad,String nombre,String apellido,Date fn,int dni,String domicilio ,String email, String password) {
+ public Medico (int id,int matricula,String especialidad,String nombre,String apellido,int dni,String domicilio ,String email, String password) {
 	 
-  super(id,nombre,apellido,fn,dni,domicilio,email,null);
+  super(id,nombre,apellido,null,dni,domicilio,email,null);
   this.password = password;
   this.matricula=matricula;
   this.especialidad=especialidad;
   agendaLibre = new LinkedList<>();
   turnos = new LinkedList<>();
 
+}
+
+//constructoir con id, nombre, email, dni
+public Medico(int id, String nombre, String email, int dni) {
+  super(id, nombre, null, null, dni, null, email, null);
+  this.matricula = 0;
+  this.especialidad = null;
+  agendaLibre = new LinkedList<>();
+  turnos = new LinkedList<>();
+}
+
+
+
+
+
+
+//constructor con new medico id, matricula, especialidad, nombre, apellido,dni,domicilio,email,password
+
+
+
+
+public Medico(int id, String nombre, String apellido, int dni, String domicilio, String email, String password) {
+  super(id, nombre, apellido, null, dni, domicilio, email, null);
+  this.password = password;
+  this.matricula = 0;
+  this.especialidad = null;
+  agendaLibre = new LinkedList<>();
+  turnos = new LinkedList<>();
+}
+ 
+public Medico(int id, String nombre, String apellido, int dni, String domicilio, String email, String password,String especialidad, int matricula) {
+	  super(id, nombre, apellido, null, dni, domicilio, email, null);
+	  this.password = password;
+	  
+	  this.matricula = matricula;
+	  this.especialidad = especialidad;
+	  agendaLibre = new LinkedList<>();
+	  turnos = new LinkedList<>();
+	}
+
+
+
+
+
+
+
+//Constructor sin parametros  
+public Medico() {
+  super();
+  this.matricula = 0;
+  this.especialidad = null;
+  agendaLibre = new LinkedList<>();
+  turnos = new LinkedList<>();
 }
 	 
 //getters y setters de la clase Medico
@@ -76,8 +138,72 @@ public LinkedList<LocalDateTime> getAgendaLibre() {
     this.turnos = turnos;
   }
   
+  public String getPassword() {
+      return password;
+  }
+
+  
+  
+  
+  
+
+  private static Connection con = Conexion.getInstance().getConnection();
 
 
+  
+  
+  
+  
+  
+  public static Medico loginMedico(int dni, String password) {
+  	Medico medico = new Medico();
+  	
+  	
+      try {
+          PreparedStatement stmt = con.prepareStatement(
+              "SELECT * FROM medico WHERE dni = ? AND password = ?"
+          );
+          stmt.setInt(1, dni);
+          stmt.setString(2, medico.encriptar(password));
+          
+          ResultSet rs = stmt.executeQuery();
+
+          if (rs.next()) {
+            
+          	
+          	int id = rs.getInt("id"); //falta agregarlo al constructor
+              String email = rs.getString("email");
+              
+              
+              String nombre = rs.getString("nombre");
+              String apellido = rs.getString("apellido");
+              String domicilio = rs.getString("domicilio");
+              String matriculastr = rs.getString("matricula");
+              String especialidad = rs.getString("especialidad");
+
+              int matricula = Integer.parseInt(matriculastr);
+              
+              
+             //crear nuevo recepcionista con todos los datos de la base de datos
+             medico = new Medico(id,nombre, apellido, dni, domicilio,email,password,especialidad,matricula); 
+             
+
+          }
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+      return medico;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
  @Override
  public String toString() {
   return "Medico [matricula=" + matricula + ", especialidad=" + especialidad + ", agendaLibre=" + agendaLibre
@@ -85,5 +211,46 @@ public LinkedList<LocalDateTime> getAgendaLibre() {
  }
 
 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 }

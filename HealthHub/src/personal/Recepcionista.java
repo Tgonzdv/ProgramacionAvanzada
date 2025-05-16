@@ -132,13 +132,11 @@ public class Recepcionista  extends Persona implements Encriptador  {
     }
     
 
-
- //metodo para registrar nuevo medico 
-    public Medico registrarMedico(int id,int matricula, String especialidad, int rol, String nombre, String apellido, Date fn, int dni, String domicilio,String email,String password) {
-        Medico medico = new Medico(id,matricula, especialidad,  nombre, apellido, fn, dni, domicilio,email,password);
-        return medico;
-    }
     
+    
+    
+    
+ 
    
     
     
@@ -320,6 +318,151 @@ public class Recepcionista  extends Persona implements Encriptador  {
 
 
 
+    
+    
+    // aca es todo para el objeto medico
+    
+    
+    
+    
+    
+    public static void agregarMedico(Medico nuevo) {
+        try {
+            PreparedStatement statement = con.prepareStatement(
+                "INSERT INTO medico (nombre,apellido,domicilio, email,dni,matricula,especialidad, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            );
+
+
+           
+            statement.setString(1, nuevo.getNombre());
+          statement.setString(2, nuevo.getApellido());
+          statement.setString(3, nuevo.getDomicilio());
+          statement.setString(4, nuevo.getEmail());
+            statement.setInt(5, nuevo.getDni());
+            statement.setInt(6, nuevo.getMatricula());
+            statement.setString(7, nuevo.getEspecialidad());
+            
+            
+            statement.setString(8, 
+            		
+            		
+            		nuevo.encriptar(nuevo.getPassword())
+            		
+            		);
+
+            int filas = statement.executeUpdate();
+            if (filas > 0) {
+                System.out.println("Medico agregado correctamente.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
+
+
+
+    public static LinkedList<Medico> mostrarMedicos() {
+        LinkedList<Medico> medicos = new LinkedList<>();
+        try {
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM medico");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String email = rs.getString("email");
+
+                
+                int dni = rs.getInt("dni");
+
+                medicos.add(new Medico(id, nombre, email, dni));
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+
+}
+
+  
+
+        return medicos;
+    }
+    
+    
+    
+
+
+
+
+  //metodo para verificar si ya existe
+    public static void RegistrarMedico(Medico nuevo) {
+    	
+    	LinkedList<Medico> existentes = mostrarMedicos();
+    	boolean flag = true;
+    	for (Medico existente : existentes) {
+			if (existente.getDni()==(nuevo.getDni())     
+                    || existente.getEmail().equals(nuevo.getEmail())) {
+				flag = false;
+				break;
+			}
+		}
+    	if (flag) {
+    		agregarMedico(nuevo);
+    		JOptionPane.showMessageDialog(null, "Medico creado con exito");
+		}else {
+			
+			
+			JOptionPane.showMessageDialog(null, "Medico ya creado con ese dni o email");
+		}
+    	
+    	
+    }
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 

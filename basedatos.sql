@@ -48,6 +48,16 @@ CREATE TABLE Historial (
     FOREIGN KEY (paciente_id) REFERENCES Paciente(id) ON DELETE CASCADE
 );
 
+--tabla agenda
+CREATE TABLE Agenda (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    medico_id INT,
+    fecha DATE,
+    hora TIME,
+    FOREIGN KEY (medico_id) REFERENCES Medico(id) ON DELETE CASCADE
+);
+
+
 -- Tabla Turno (relaciona Paciente y Médico)
 CREATE TABLE Turno (
     id INT PRIMARY KEY AUTO_INCREMENT,

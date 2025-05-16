@@ -1,7 +1,9 @@
 package sistemaHealthHub;
 
+import personal.Medico;
 import personal.Recepcionista;
 
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -42,7 +44,12 @@ public class AppTest {
                     case 1:
           
 
-                        Login();
+                        LoginRecep();
+                        break;
+                    case 2:
+                        
+
+                    	LoginMed();
                         break;
                
                     case 99:
@@ -110,7 +117,7 @@ public class AppTest {
     }
     
     
-  public static void Login(){ 
+  public static void LoginRecep(){ 
 	  
 	  
       String dniStr = validarVacio("Ingrese su DNI:");
@@ -140,7 +147,34 @@ public class AppTest {
           }
   
   
-  
+  public static void LoginMed(){ 
+	  
+	  
+      String dniStr = validarVacio("Ingrese su DNI:");
+      String pass = validarVacio("Ingrese la contraseña  :");
+    
+ 
+            try {
+                int dni = Integer.parseInt(dniStr);
+                 Medico medico = new Medico();
+                
+                
+                 medico=medico.loginMedico(dni, pass);
+                
+
+                JOptionPane.showMessageDialog(null, "Login con éxito para DNI:\n" + dni );
+          
+                 
+                menuMedico(medico);
+                
+        
+            
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor ingrese un DNI válido.");
+            } 
+        
+        
+          }
   
   
   
@@ -181,13 +215,13 @@ public class AppTest {
 
                 switch (opcionRecep) {
                     case 1:
-                        submenuTurnos();
+                        submenuTurnos(r);
                         break;
                     case 2:
-                        submenuPacientes();
+                        submenuPacientes(r);
                         break;
                     case 3:
-                        submenuMedicos();
+                        submenuMedicos(r);
                         break;
                     case 4:
                         break;
@@ -201,7 +235,16 @@ public class AppTest {
         } while (opcionRecep != 4);
     }
 
-    public static void submenuTurnos() {
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public static void submenuTurnos(Recepcionista r) {
         String[] opcionesTurnos = {
             "1. Asignar turno",
             "2. Cancelar turno",
@@ -248,7 +291,7 @@ public class AppTest {
         }
     }
 
-    public static void submenuPacientes() {
+    public static void submenuPacientes(Recepcionista r) {
         String[] opcionesPacientes = {
             "1. Cargar paciente",
             "2. Modificar paciente",
@@ -291,9 +334,9 @@ public class AppTest {
         }
     }
 
-    public static void submenuMedicos() {
+    public static void submenuMedicos(Recepcionista r) {
         String[] opcionesMedicos = {
-            "1. Cargar médico",
+            "1. Registrar médico",
             "2. Modificar médico",
             "3. Volver"
         };
@@ -318,7 +361,7 @@ public class AppTest {
                 int subOpcion = Integer.parseInt(inputMedico);
                 switch (subOpcion) {
                     case 1:
-                        JOptionPane.showMessageDialog(null, "Cargar médico seleccionado");
+                    	RegistrarMed(r);
                         break;
                     case 2:
                         JOptionPane.showMessageDialog(null, "Modificar médico seleccionado");
@@ -334,7 +377,51 @@ public class AppTest {
         }
     }
 
-    public static void menuMedico() {
+    
+    
+    //Funciona , falta emprolijar codigo y diseño
+    public static void RegistrarMed(Recepcionista r){  //ESTE MENU ESTARA OCULTO, SE USA PARA CREAR EL PRIMER USUARIO RECEPCIONISTA
+
+        String nombre = validarVacio("Ingrese el nombre :");
+        String apellido = validarVacio("Ingrese el apellido :");
+        String dniStr = validarVacio("Ingrese el DNI:");
+        String domicilio = validarVacio("Ingrese el domicilio :");
+        
+        String matriculastr = validarVacio("Ingrese la matricula :");
+        
+        String especialidad = validarVacio("Ingrese la especialidad :");
+        
+        
+        String email = validarVacio("Ingrese el email :");
+        String password = validarVacio("Ingrese la contraseña :");
+
+
+     
+            try {
+            	
+                int dni = Integer.parseInt(dniStr);
+                int matricula = Integer.parseInt(matriculastr);
+                
+            
+                  Medico medico = new Medico(0,nombre, apellido, dni, domicilio,email,password,especialidad,matricula); 
+                
+               
+                
+                Recepcionista.RegistrarMedico(medico);
+            
+                
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor ingrese un DNI válido.");
+            }
+
+            
+        
+        	
+    }
+    
+    
+    
+    public static void menuMedico(Medico m) {
         String[] opcionesMedico = {
             "1. Agenda",
             "2. Pacientes",
