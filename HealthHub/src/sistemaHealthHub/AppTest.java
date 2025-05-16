@@ -7,81 +7,66 @@ import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 public class AppTest {
 
     public static void main(String[] args) {
-        String[] menuInicio = {
-            "1. Ingresar a menu Recepcionista",
-            "2. Ingresar a menu Medico",
-            "99. Registrar recepcionista",
-            "4. Salir"
+        UIManager.put("OptionPane.background", new java.awt.Color(245, 245, 245));
+        UIManager.put("Panel.background", new java.awt.Color(245, 245, 245));
+        UIManager.put("OptionPane.messageFont", new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 16));
+        UIManager.put("OptionPane.buttonFont", new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
+
+        ImageIcon icono = new ImageIcon(AppTest.class.getResource("../Imagenes/fondo_inicio.png"));
+
+        String[] opciones = {
+            "Ingresar a menú Recepcionista",
+            "Ingresar a menú Médico",
+            "Registrar Recepcionista",
+            "Salir"
         };
-        int opcionInicial = 0;
 
-        do {
-            String menu = "=== BIENVENIDO A HEALTHHUB ===\n";
-            for (String op : menuInicio) {
-                menu += op + "\n";
-            }
-
-            String inputInicio = (String) JOptionPane.showInputDialog(
+        while (true) {
+            int seleccion = JOptionPane.showOptionDialog(
                 null,
-                menu,
-                "Sistema de gestión para Pacientes - HEALTHHUB",
+                "<html><h2 style='color:#2E86C1;'>Bienvenido a <b>HEALTHHUB</b></h2><hr>"
+                + "<p style='font-size:13px;'>Seleccione una opción para continuar:</p></html>",
+                "Sistema de Gestión para Pacientes - HEALTHHUB",
                 JOptionPane.DEFAULT_OPTION,
-                new ImageIcon(AppTest.class.getResource("../Imagenes/fondo_inicio.png")),
-                null,
-                null
+                JOptionPane.PLAIN_MESSAGE,
+                icono,
+                opciones,
+                opciones[0]
             );
 
-            if (inputInicio == null) break;
-
-            try {
-                opcionInicial = Integer.parseInt(inputInicio);
-
-                switch (opcionInicial) {
-                    case 1:
-          
-
-                        LoginRecep();
-                        break;
-                    case 2:
-                        
-
-                    	LoginMed();
-                        break;
-               
-                    case 99:
-                    	
-            
-                    	 RegistrarRecep();
-                        
-                        
-                    case 4:
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(null, "Opción inválida");
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor ingrese un número válido.");
+            if (seleccion == 0) {
+                LoginRecep();
+            } else if (seleccion == 1) {
+                LoginMed();
+            } else if (seleccion == 2) {
+                RegistrarRecep();
+            } else {
+                // Salir o cerrar ventana
+                JOptionPane.showMessageDialog(
+                    null,
+                    "<html><center><b>Gracias por usar HealthHub.<br>¡Hasta pronto!</b></center></html>",
+                    "Salir",
+                    JOptionPane.INFORMATION_MESSAGE,
+                    icono
+                );
+                break;
             }
-
-        } while (opcionInicial != 4);
+        }
     }
 
-    
-    
     public static String validarVacio(String mensaje) {
-    	String data;
-    	do {
-			
-    		data= JOptionPane.showInputDialog(mensaje);
-		} while (data.isEmpty());
-    	return data;
-    	
+        String data;
+        do {
+            data = JOptionPane.showInputDialog(null, "<html><p style='font-size:13px;'>" + mensaje + "</p></html>", "HEALTHHUB", JOptionPane.QUESTION_MESSAGE);
+            if (data == null) data = ""; // Si cancela, forzar a repetir
+        } while (data.trim().isEmpty());
+        return data.trim();
     }
-    
  
     
     
@@ -167,7 +152,7 @@ public class AppTest {
                  recepcionista=recepcionista.loginRecepcionista(dniStr, pass);
                 
               if(recepcionista.getDni()=="999") {
-                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+                 JOptionPane.showMessageDialog(null, "Error la ingresar");
               return;
                 }else {
                 JOptionPane.showMessageDialog(null, "Login con éxito para DNI:\n" + dniStr );
@@ -193,14 +178,14 @@ public class AppTest {
     
  
             try {
-               
+                 
                  Medico medico = new Medico();
                 
                 
                  medico=medico.loginMedico(dniStr, pass);
                 
                 if(medico.getDni()=="999") {
-                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+                 JOptionPane.showMessageDialog(null, "Error al ingresar");
                     return;
  } else {
                 JOptionPane.showMessageDialog(null, "Login con éxito para DNI:\n" + dniStr );
@@ -491,7 +476,7 @@ public class AppTest {
     
          
             	
-          
+              
                 int matricula = Integer.parseInt(matriculastr);
                 
                 

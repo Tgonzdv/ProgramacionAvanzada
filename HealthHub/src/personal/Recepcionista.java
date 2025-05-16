@@ -202,7 +202,11 @@ public class Recepcionista extends Persona implements Encriptador {
                 return recepcionista;
             }
         } catch (Exception e) {
+        	
             e.printStackTrace();
+            recepcionista.setDni("999");
+            return recepcionista;
+            
         }
         return recepcionista;
     }

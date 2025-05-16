@@ -190,11 +190,13 @@ public LinkedList<LocalDateTime> getAgendaLibre() {
 
           }else {
               JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
-              medico.setDni("999");
+              medico.setDni("99");
               return medico;
           }
       } catch (Exception e) {
           e.printStackTrace();
+          medico.setDni("999");
+          return medico;
       }
       return medico;
   }
