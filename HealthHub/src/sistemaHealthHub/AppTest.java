@@ -87,34 +87,64 @@ public class AppTest {
     
     public static void RegistrarRecep(){  //ESTE MENU ESTARA OCULTO, SE USA PARA CREAR EL PRIMER USUARIO RECEPCIONISTA
 
-        String nombre = validarVacio("Ingrese el nombre del recepcionista:");
-        String apellido = validarVacio("Ingrese el apellido del recepcionista:");
-        String dniStr = validarVacio("Ingrese el DNI del recepcionista:");
+        String dniStr;
+        do {
+            dniStr = validarVacio("Ingrese el DNI del recepcionista:");
+            if (dniStr.length() < 7 || !dniStr.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "El DNI debe tener al menos 7 dígitos numéricos.");
+            dniStr = "";
+            }
+        } while (dniStr.isEmpty());
+
+        String nombre;
+        do {
+            nombre = validarVacio("Ingrese el nombre del recepcionista:");
+            if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+            JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
+            nombre = "";
+            }
+        } while (nombre.isEmpty());
+
+        String apellido;
+        do {
+            apellido = validarVacio("Ingrese el apellido del recepcionista:");
+            if (!apellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+            JOptionPane.showMessageDialog(null, "El apellido solo debe contener letras.");
+            apellido = "";
+            }
+        } while (apellido.isEmpty());
+
         String domicilio = validarVacio("Ingrese el domicilio del recepcionista:");
-        String email = validarVacio("Ingrese el email del recepcionista:");
-        String password = validarVacio("Ingrese la contraseña del recepcionista:");
+
+        String email;
+        do {
+            email = validarVacio("Ingrese el email del recepcionista:");
+            if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+            JOptionPane.showMessageDialog(null, "Ingrese un email válido.");
+            email = "";
+            }
+        } while (email.isEmpty());
+
+        String password;
+        do {
+            password = validarVacio("Ingrese la contraseña del recepcionista:");
+            if (password.length() < 6) {
+            JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos 6 caracteres.");
+            password = "";
+            }
+        } while (password.isEmpty());
 
 
      
-            try {
-            	
-                int dni = Integer.parseInt(dniStr);
+         
+            	 
               
-                
-                if (dniStr.length() < 7) {
-                    JOptionPane.showMessageDialog(null, "El DNI debe tener al menos 7 dígitos.");
-                    return; }
-              
-            
              
-                Recepcionista recepcionista = new Recepcionista(0,nombre, apellido, dni, domicilio,email,password);
+                Recepcionista recepcionista = new Recepcionista(0,nombre, apellido, dniStr, domicilio,email,password);
                 
                 Recepcionista.RegistrarRecepcionista(recepcionista);
             
-                
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor ingrese un DNI válido.");
-            }
+       
 
             
         
@@ -130,17 +160,17 @@ public class AppTest {
     
  
             try {
-                int dni = Integer.parseInt(dniStr);
+               
                  Recepcionista recepcionista = new Recepcionista();
                 
                 
-                 recepcionista=recepcionista.loginRecepcionista(dni, pass);
+                 recepcionista=recepcionista.loginRecepcionista(dniStr, pass);
                 
-              if(recepcionista.getDni()==999) {
+              if(recepcionista.getDni()=="999") {
                  JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
               return;
                 }else {
-                JOptionPane.showMessageDialog(null, "Login con éxito para DNI:\n" + dni );
+                JOptionPane.showMessageDialog(null, "Login con éxito para DNI:\n" + dniStr );
                   menuRecepcionista(recepcionista);
                }   
                
@@ -163,17 +193,17 @@ public class AppTest {
     
  
             try {
-                int dni = Integer.parseInt(dniStr);
+               
                  Medico medico = new Medico();
                 
                 
-                 medico=medico.loginMedico(dni, pass);
+                 medico=medico.loginMedico(dniStr, pass);
                 
-                if(medico.getDni()==999) {
+                if(medico.getDni()=="999") {
                  JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
                     return;
  } else {
-                JOptionPane.showMessageDialog(null, "Login con éxito para DNI:\n" + dni );
+                JOptionPane.showMessageDialog(null, "Login con éxito para DNI:\n" + dniStr );
           
                  
                 menuMedico(medico);
@@ -393,46 +423,86 @@ public class AppTest {
     
     //Funciona , falta emprolijar codigo y diseño
     public static void RegistrarMed(Recepcionista r){  //ESTE MENU ESTARA OCULTO, SE USA PARA CREAR EL PRIMER USUARIO RECEPCIONISTA
+    String dniStr;
+    do {
+        dniStr = validarVacio("Ingrese el DNI:");
+        if (dniStr.length() < 7 || !dniStr.matches("\\d+")) {
+        JOptionPane.showMessageDialog(null, "El DNI debe tener al menos 7 dígitos numéricos.");
+        dniStr = "";
+        }
+    } while (dniStr.isEmpty());
 
-        String nombre = validarVacio("Ingrese el nombre :");
-        String apellido = validarVacio("Ingrese el apellido :");
-        String dniStr = validarVacio("Ingrese el DNI:");
-        String domicilio = validarVacio("Ingrese el domicilio :");
-        
-        String matriculastr = validarVacio("Ingrese la matricula :");
-        
-        String especialidad = validarVacio("Ingrese la especialidad :");
-        
-        
-        String email = validarVacio("Ingrese el email :");
-        String password = validarVacio("Ingrese la contraseña :");
+    String nombre;
+    do {
+        nombre = validarVacio("Ingrese el nombre:");
+        if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+        JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
+        nombre = "";
+        }
+    } while (nombre.isEmpty());
 
+    String apellido;
+    do {
+        apellido = validarVacio("Ingrese el apellido:");
+        if (!apellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+        JOptionPane.showMessageDialog(null, "El apellido solo debe contener letras.");
+        apellido = "";
+        }
+    } while (apellido.isEmpty());
 
-     
-            try {
+    String domicilio = validarVacio("Ingrese el domicilio:");
+
+    String matriculastr;
+    do {
+        matriculastr = validarVacio("Ingrese la matrícula:");
+        if (!matriculastr.matches("\\d+")) {
+        JOptionPane.showMessageDialog(null, "La matrícula debe ser numérica.");
+        matriculastr = "";
+        }
+    } while (matriculastr.isEmpty());
+
+    String especialidad;
+    do {
+        especialidad = validarVacio("Ingrese la especialidad:");
+        if (!especialidad.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+        JOptionPane.showMessageDialog(null, "La especialidad solo debe contener letras.");
+        especialidad = "";
+        }
+    } while (especialidad.isEmpty());
+
+    String email;
+    do {
+        email = validarVacio("Ingrese el email:");
+        if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+        JOptionPane.showMessageDialog(null, "Ingrese un email válido.");
+        email = "";
+        }
+    } while (email.isEmpty());
+
+    String password;
+    do {
+        password = validarVacio("Ingrese la contraseña:");
+        if (password.length() < 6) {
+        JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos 6 caracteres.");
+        password = "";
+        }
+    } while (password.isEmpty());
+
+    
+         
             	
-                int dni = Integer.parseInt(dniStr);
+          
                 int matricula = Integer.parseInt(matriculastr);
                 
                 
-                
-                
-                if (dniStr.length() < 7) {
-                    JOptionPane.showMessageDialog(null, "El DNI debe tener al menos 7 dígitos.");
-                    return; }
-                
-                
             
-                  Medico medico = new Medico(0,nombre, apellido, dni, domicilio,email,password,especialidad,matricula); 
+                  Medico medico = new Medico(0,nombre, apellido, dniStr, domicilio,email,password,especialidad,matricula); 
                 
                
                 
                 Recepcionista.RegistrarMedico(medico);
             
-                
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor ingrese un DNI válido.");
-            }
+         
 
             
         

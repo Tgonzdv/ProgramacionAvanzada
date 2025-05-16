@@ -10,7 +10,7 @@ public class Persona {
 	private String nombre;
 	private String apellido;
 	private Date fechaNac;
-	private int dni;
+	private String dni;
 	private String email;
 	private String telefono;
 	private String domicilio;
@@ -18,7 +18,7 @@ public class Persona {
 
 	public Persona(){}
 	
-	public Persona(int id,String nombre,String apellido,Date fn,int dni,String domicilio ,String email, String telefono) {
+	public Persona(int id,String nombre,String apellido,Date fn,String dni,String domicilio ,String email, String telefono) {
 		
 		this.id =id;
 		
@@ -32,7 +32,7 @@ public class Persona {
 	}
 	
 	
-	public Persona(String nombre,int dni,String email) {
+	public Persona(String nombre,String dni,String email) {
 		 this.id = contadorId++;
 		
 		this.nombre=nombre;
@@ -75,10 +75,10 @@ public class Persona {
 		this.fechaNac = fechaNac;
 	}
 
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
-	public void setDni(int dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 

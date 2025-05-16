@@ -34,13 +34,13 @@ public class Recepcionista extends Persona implements Encriptador {
     }
 
     // Constructor completo
-    public Recepcionista(int id, String nombre, String apellido, int dni, String domicilio, String email, String password) {
+    public Recepcionista(int id, String nombre, String apellido, String dni, String domicilio, String email, String password) {
         super(id, nombre, apellido, null, dni, domicilio, email, null);
         this.password = password;
     }
 
     // Constructor reducido
-    public Recepcionista(int id, String nombre, String email, int dni) {
+    public Recepcionista(int id, String nombre, String email, String dni) {
         super(nombre, dni, email);
     }
 
@@ -99,12 +99,12 @@ public class Recepcionista extends Persona implements Encriptador {
     }
 
     // Registrar paciente
-    public Paciente registrarPaciente(int id, String nombre, String apellido, Date fn, int dni, String domicilio, String email) {
+    public Paciente registrarPaciente(int id, String nombre, String apellido, Date fn, String dni, String domicilio, String email) {
         return new Paciente(id, nombre, apellido, fn, dni, domicilio, email, null);
     }
 
     // Modificar datos de paciente
-    public void modificarDatosPaciente(Paciente paciente, String nombre, String apellido, Date fn, int dni, String domicilio) {
+    public void modificarDatosPaciente(Paciente paciente, String nombre, String apellido, Date fn, String dni, String domicilio) {
         paciente.setNombre(nombre);
         paciente.setApellido(apellido);
         paciente.setFn(fn);
@@ -113,7 +113,7 @@ public class Recepcionista extends Persona implements Encriptador {
     }
 
     // Modificar datos de medico
-    public void modificarDatosMedico(Medico medico, String nombre, String apellido, Date fn, int dni, String domicilio) {
+    public void modificarDatosMedico(Medico medico, String nombre, String apellido, Date fn, String dni, String domicilio) {
         medico.setNombre(nombre);
         medico.setApellido(apellido);
         medico.setFn(fn);
@@ -130,7 +130,10 @@ public class Recepcionista extends Persona implements Encriptador {
             statement.setString(2, nuevo.getApellido());
             statement.setString(3, nuevo.getDomicilio());
             statement.setString(4, nuevo.getEmail());
-            statement.setInt(5, nuevo.getDni());
+            
+            statement.setString(5, nuevo.getDni());
+            
+            
             statement.setString(6, nuevo.encriptar(nuevo.getPassword()));
             int filas = statement.executeUpdate();
             if (filas > 0) {
@@ -151,7 +154,7 @@ public class Recepcionista extends Persona implements Encriptador {
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
                 String email = rs.getString("email");
-                int dni = rs.getInt("dni");
+                String dni = rs.getString("dni");
                 recepcionistas.add(new Recepcionista(id, nombre, email, dni));
             }
         } catch (Exception e) {
@@ -179,12 +182,12 @@ public class Recepcionista extends Persona implements Encriptador {
     }
 
     // Login recepcionista
-    public static Recepcionista loginRecepcionista(int dni, String password) {
+    public static Recepcionista loginRecepcionista(String dni, String password) {
         Recepcionista recepcionista = new Recepcionista();
         try {
             PreparedStatement stmt = con.prepareStatement(
                     "SELECT * FROM recepcionista WHERE dni = ? AND password = ?");
-            stmt.setInt(1, dni);
+            stmt.setString(1, dni);
             stmt.setString(2, recepcionista.encriptar(password));
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -195,7 +198,7 @@ public class Recepcionista extends Persona implements Encriptador {
                 String domicilio = rs.getString("domicilio");
                 recepcionista = new Recepcionista(id, nombre, apellido, dni, domicilio, email, password);
             } else {
-                recepcionista.setDni(999);
+                recepcionista.setDni("999");
                 return recepcionista;
             }
         } catch (Exception e) {
@@ -213,7 +216,7 @@ public class Recepcionista extends Persona implements Encriptador {
             statement.setString(2, nuevo.getApellido());
             statement.setString(3, nuevo.getDomicilio());
             statement.setString(4, nuevo.getEmail());
-            statement.setInt(5, nuevo.getDni());
+            statement.setString(5, nuevo.getDni());
             statement.setInt(6, nuevo.getMatricula());
             statement.setString(7, nuevo.getEspecialidad());
             statement.setString(8, nuevo.encriptar(nuevo.getPassword()));
@@ -236,7 +239,7 @@ public class Recepcionista extends Persona implements Encriptador {
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
                 String email = rs.getString("email");
-                int dni = rs.getInt("dni");
+                String dni = rs.getString("dni");
                 medicos.add(new Medico(id, nombre, email, dni));
             }
         } catch (Exception e) {

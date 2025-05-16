@@ -11,7 +11,7 @@ CREATE TABLE Paciente (
     telefono VARCHAR(20),
     fecha_nac DATE,
     domicilio VARCHAR(100),
-    dni INT UNIQUE
+    dni VARCHAR(14) UNIQUE
 );
 
 -- Tabla Médico
@@ -22,8 +22,7 @@ CREATE TABLE Medico (
     domicilio VARCHAR(100),
     email VARCHAR(100) UNIQUE,
     password VARCHAR(255),
-
-    dni INT UNIQUE,
+  dni VARCHAR(14) UNIQUE,
     matricula INT UNIQUE,
     especialidad VARCHAR(50)
 );
@@ -36,7 +35,7 @@ CREATE TABLE Recepcionista (
     domicilio VARCHAR(100),
     email VARCHAR(100) UNIQUE,
     password VARCHAR(255),
-    dni INT UNIQUE
+    dni VARCHAR(14) UNIQUE
 
 );
 
@@ -48,7 +47,7 @@ CREATE TABLE Historial (
     FOREIGN KEY (paciente_id) REFERENCES Paciente(id) ON DELETE CASCADE
 );
 
---tabla agenda
+-- tabla agenda
 CREATE TABLE Agenda (
     id INT PRIMARY KEY AUTO_INCREMENT,
     medico_id INT,

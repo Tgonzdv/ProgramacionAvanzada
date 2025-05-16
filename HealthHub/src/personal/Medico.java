@@ -27,7 +27,7 @@ public class Medico extends Persona  implements Encriptador  {
  //Constructor de la clase Medico
  //Recibe como parametro la matricula,especialidad,nombre,apellido,fecha de nacimiento,dni y domicilio
 
- public Medico (int id,int matricula,String especialidad,String nombre,String apellido,int dni,String domicilio ,String email, String password) {
+ public Medico (int id,int matricula,String especialidad,String nombre,String apellido,String dni,String domicilio ,String email, String password) {
 	 
   super(id,nombre,apellido,null,dni,domicilio,email,null);
   this.password = password;
@@ -39,7 +39,7 @@ public class Medico extends Persona  implements Encriptador  {
 }
 
 //constructoir con id, nombre, email, dni
-public Medico(int id, String nombre, String email, int dni) {
+public Medico(int id, String nombre, String email, String dni) {
   super(id, nombre, null, null, dni, null, email, null);
   this.matricula = 0;
   this.especialidad = null;
@@ -57,7 +57,7 @@ public Medico(int id, String nombre, String email, int dni) {
 
 
 
-public Medico(int id, String nombre, String apellido, int dni, String domicilio, String email, String password) {
+public Medico(int id, String nombre, String apellido, String dni, String domicilio, String email, String password) {
   super(id, nombre, apellido, null, dni, domicilio, email, null);
   this.password = password;
   this.matricula = 0;
@@ -66,7 +66,7 @@ public Medico(int id, String nombre, String apellido, int dni, String domicilio,
   turnos = new LinkedList<>();
 }
  
-public Medico(int id, String nombre, String apellido, int dni, String domicilio, String email, String password,String especialidad, int matricula) {
+public Medico(int id, String nombre, String apellido, String dni, String domicilio, String email, String password,String especialidad, int matricula) {
 	  super(id, nombre, apellido, null, dni, domicilio, email, null);
 	  this.password = password;
 	  
@@ -155,7 +155,7 @@ public LinkedList<LocalDateTime> getAgendaLibre() {
   
   
   
-  public static Medico loginMedico(int dni, String password) {
+  public static Medico loginMedico(String dni, String password) {
   	Medico medico = new Medico();
   	
   	
@@ -163,7 +163,7 @@ public LinkedList<LocalDateTime> getAgendaLibre() {
           PreparedStatement stmt = con.prepareStatement(
               "SELECT * FROM medico WHERE dni = ? AND password = ?"
           );
-          stmt.setInt(1, dni);
+          stmt.setString(1, dni);
           stmt.setString(2, medico.encriptar(password));
           
           ResultSet rs = stmt.executeQuery();
@@ -190,7 +190,7 @@ public LinkedList<LocalDateTime> getAgendaLibre() {
 
           }else {
               JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
-              medico.setDni(999);
+              medico.setDni("999");
               return medico;
           }
       } catch (Exception e) {
