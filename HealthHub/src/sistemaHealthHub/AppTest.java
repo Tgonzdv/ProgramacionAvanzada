@@ -65,23 +65,32 @@ public class AppTest {
 
     
     
+    public static String validarVacio(String mensaje) {
+    	String data;
+    	do {
+			
+    		data= JOptionPane.showInputDialog(mensaje);
+		} while (data.isEmpty());
+    	return data;
+    	
+    }
     
-    
-    
+ 
     
     
     public static void RegistrarRecep(){  //ESTE MENU ESTARA OCULTO, SE USA PARA CREAR EL PRIMER USUARIO RECEPCIONISTA
 
-        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del recepcionista:");
-        String apellido = JOptionPane.showInputDialog("Ingrese el apellido del recepcionista:");
-        String dniStr = JOptionPane.showInputDialog("Ingrese el DNI del recepcionista:");
-        String domicilio = JOptionPane.showInputDialog("Ingrese el domicilio del recepcionista:");
-        String email = JOptionPane.showInputDialog("Ingrese el email del recepcionista:");
-        String password = JOptionPane.showInputDialog("Ingrese la contraseña del recepcionista:");
+        String nombre = validarVacio("Ingrese el nombre del recepcionista:");
+        String apellido = validarVacio("Ingrese el apellido del recepcionista:");
+        String dniStr = validarVacio("Ingrese el DNI del recepcionista:");
+        String domicilio = validarVacio("Ingrese el domicilio del recepcionista:");
+        String email = validarVacio("Ingrese el email del recepcionista:");
+        String password = validarVacio("Ingrese la contraseña del recepcionista:");
 
 
-        if (nombre != null && apellido != null && dniStr != null && domicilio != null) {
+     
             try {
+            	
                 int dni = Integer.parseInt(dniStr);
                
             
@@ -96,44 +105,39 @@ public class AppTest {
             }
 
             
-        }
         
-    	
-    	
+        	
     }
     
     
   public static void Login(){ 
-             String dniStr = JOptionPane.showInputDialog("Ingrese su DNI:");
-            String pass = JOptionPane.showInputDialog("Ingrese la contraseña  :");
+	  
+	  
+      String dniStr = validarVacio("Ingrese su DNI:");
+      String pass = validarVacio("Ingrese la contraseña  :");
     
-    if( dniStr != null && pass != null) {
+ 
             try {
                 int dni = Integer.parseInt(dniStr);
-               
-              
+                 Recepcionista recepcionista = new Recepcionista();
                 
                 
+                 recepcionista=recepcionista.loginRecepcionista(dni, pass);
                 
+
                 JOptionPane.showMessageDialog(null, "Login con éxito para DNI:\n" + dni );
           
-                
-               
-                
-                
-                
-                menuRecepcionista();
+                 
+                menuRecepcionista(recepcionista);
                 
         
-            
-            
             
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Por favor ingrese un DNI válido.");
             } 
         
         
-        } }
+          }
   
   
   
@@ -145,7 +149,7 @@ public class AppTest {
   
   
     
-    public static void menuRecepcionista() {
+    public static void menuRecepcionista(Recepcionista r) {
         String[] opcionesRecepcionista = {
             "1. Ir a Turnos",
             "2. Ir a Pacientes",
@@ -155,7 +159,7 @@ public class AppTest {
 
         int opcionRecep = 0;
         do {
-            String menuRecep = "=== MENÚ RECEPCIONISTA ===\n";
+            String menuRecep = "=== MENÚ RECEPCIONISTA === Usuario " + r.getNombre() + "\n";
             for (String op : opcionesRecepcionista) {
                 menuRecep += op + "\n";
             }

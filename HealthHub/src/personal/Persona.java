@@ -16,7 +16,7 @@ public class Persona {
 	private String domicilio;
 	
 
-	
+	public Persona(){}
 	
 	public Persona(int id,String nombre,String apellido,Date fn,int dni,String domicilio ,String email, String telefono) {
 		

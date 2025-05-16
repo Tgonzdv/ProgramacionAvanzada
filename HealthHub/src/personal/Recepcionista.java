@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
-
+import javax.swing.JOptionPane;
 import complementosBack.Conexion;
 
 import java.sql.PreparedStatement;
@@ -40,6 +40,10 @@ public class Recepcionista  extends Persona implements Encriptador  {
     }
    
    
+    public Recepcionista() {
+    	super();
+    }
+    
    
     //Constructor de la clase Recepcionista
     public Recepcionista(int id,String nombre, String apellido, int dni, String domicilio , String email, String password) {
@@ -166,9 +170,6 @@ public class Recepcionista  extends Persona implements Encriptador  {
     
 
 
-
-
-
     private static Connection con = Conexion.getInstance().getConnection();
 
 
@@ -184,15 +185,10 @@ public class Recepcionista  extends Persona implements Encriptador  {
 
            
             statement.setString(1, nuevo.getNombre());
-
-    statement.setString(2, nuevo.getApellido());
-
-     statement.setString(3, nuevo.getDomicilio());
-            statement.setString(4, nuevo.getEmail());
-
+          statement.setString(2, nuevo.getApellido());
+          statement.setString(3, nuevo.getDomicilio());
+          statement.setString(4, nuevo.getEmail());
             statement.setInt(5, nuevo.getDni());
-           
-            
             statement.setString(6, 
             		
             		
@@ -282,10 +278,12 @@ public class Recepcionista  extends Persona implements Encriptador  {
     
     
     
-   /*
+   
     
     public static Recepcionista loginRecepcionista(int dni, String password) {
-    	Recepcionista recepcionista = null;
+    	Recepcionista recepcionista = new Recepcionista();
+    	
+    	
         try {
             PreparedStatement stmt = con.prepareStatement(
                 "SELECT * FROM recepcionista WHERE dni = ? AND password = ?"
@@ -300,19 +298,17 @@ public class Recepcionista  extends Persona implements Encriptador  {
             	
             	int id = rs.getInt("id"); //falta agregarlo al constructor
                 String email = rs.getString("email");
-                int dni = rs.getInt("dni");
                 
                 
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
                 String domicilio = rs.getString("domicilio");
                 
-                String password = rs.getString("password");
-
+ 
 
                //crear nuevo recepcionista con todos los datos de la base de datos
                recepcionista = new Recepcionista(id,nombre, apellido, dni, domicilio,email,password); 
-    
+               
 
             }
         } catch (Exception e) {
@@ -322,7 +318,7 @@ public class Recepcionista  extends Persona implements Encriptador  {
     }
 
 
-*/
+
 
 
 
